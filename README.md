@@ -1,4 +1,4 @@
 C204
 ====
 
-A extremely stupid microprocessor
+An extremely stupid microprocessor
