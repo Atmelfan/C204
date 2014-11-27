@@ -66,7 +66,9 @@ begin
 				jmp <= '0';
 			end if;
 		when others =>
-			null;
+			wr <= '0';
+			jmp <= '0';
+			C <= (others => '0');
 	end case;
 end process;
 
