@@ -2,7 +2,8 @@
 #Author: atmelfan
 import sys
 import csv
-from intelhex import IntelHex
+import struct
+import time
 
 instructions = {
 	"nop": 0x0,
@@ -20,13 +21,11 @@ instructions = {
 	"ori": 0xC,
 	"xoi": 0xD,
 	"ldi": 0xE,
-	"jmi": 0xF
+	"micke": 0xE,
 }
 
 symbols = {
 }
-
-program = [0x0000]
 
 def map(file, level = 0):
 	word = 0
@@ -49,15 +48,16 @@ def map(file, level = 0):
 					try:
 						print("\t"*level + "Added symbol '%s' with value %s(0x%04x)" % (ops[1], ops[2], int(ops[2], 0)))
 					except Exception, e:
-						print("\t"*level + "Added symbol '%s' with value %s(what?)" % (ops[1], ops[2]))
+						print("\t"*level + "Added symbol '%s' with value %s(\033[31mwhat?\033[0m)" % (ops[1], ops[2]))
 				elif line.startswith("$include"):
 					print("\t"*level + "Included %s" % ops[1])
 					map(ops[1], level + 1)
 				elif ops[0] in instructions or ops[0].startswith("+"):
 					word += 1
+					#print("%04x: %s" % (word, line))
 				else:
 					raise Exception("Unknown instruction: '%s' at line %s" % (ops[0], lineno))
-	print("\t"*level + "done!")
+	print("\t"*level + "Done!")
 		
 
 def toword(instr, a, b):
@@ -66,14 +66,42 @@ def toword(instr, a, b):
 		a = a.replace(key, "%s" % symbols[key])
 		b = b.replace(key, "%s" % symbols[key])
 	if instr.startswith("+"):
-		return int(instr[1:], 0)
+		return 0xF000 | int(instr[1:], 0)
 	else:
 		return (instructions[instr] << 12) | (int(a, 0) << 4) | int(b, 0)
 
 def assemble(file):
-	ih = IntelHex()
 	word = 0
-	with open(file, "r") as input, open(file + ".hex", "wb") as hexfile:
+	print("Assembling %s:" % file)
+	with open(file, "r") as input, open(file + ".mif", "w") as hexfile:
+		hexfile.write("""
+--                  #
+--                # #  #                 #########   ##########    #########
+--              # # #  # #              ###     ###  ##      ###  ###     ###
+--            # # # #  # # #            ##           ##       ##  ##       ##
+--          # # # # #  # # # #          ##           ###     ###  ##       ##
+--        # # # # # #  # # # # #        ##   ######  ##########   ###########
+--      # # # # # #    # # # # # #      ##       ##  ##           ##       ##
+--    # # # # # #        # # # # # #    ###     ###  ##           ##       ##
+--                          # # # # # #   #########   ##           ##       ##
+--  # # # # # #                       
+--    # # # # # #        # # # # # #    ##########    #########   ##########    #########   ########  ####   #########    #########
+--      # # # # # #    # # # # # #      ##      ###  ###     ###  ##       ##  ###     ###     ##      ##   ###     ###  ###     ###
+--        # # # # #  # # # # # #        ##       ##  ##       ##  ##       ##  ##       ##     ##      ##   ##           ##
+--          # # # #  # # # # #          ##      ###  ##       ##  ##########   ##       ##     ##      ##   ##            #####
+--            # # #  # # # #            ##########   ##       ##  ##       ##  ##       ##     ##      ##   ##                 ####
+--              # #  # # #              ##      ###  ##       ##  ##       ##  ##       ##     ##      ##   ##                    ##
+--                #  # #                ##       ##  ###     ###  ##       ##  ###     ###     ##      ##   ###     ###  ###     ###
+--                   #                  ##       ##   #########   ##########    #########      ##     ####   #########    #########
+-- UNNECESSARILY LARGE LOGO!
+DEPTH = 4096;
+WIDTH = 16;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+CONTENT
+BEGIN\n""")
+		print("\033[31mERROR: UNNECESSARILY LARGE LOGO is too small!\033[0m")
+		time.sleep(5)
 		for line in input:
 			line = line.strip()
 			if line.startswith("#") or line.startswith("$") or len(line) == 0:
@@ -84,25 +112,32 @@ def assemble(file):
 					pass
 				elif ops[0] in instructions:
 					dat = toword(ops[0], ops[1], ops[2])
-					ih[word+1] = ((dat & 0x00FF) >> 0)
-					ih[word+0] = ((dat & 0xFF00) >> 8)
-					print("%s > 0x%04x" % (ops[0], toword(ops[0], ops[1], ops[2])))
-					word += 2
+					hexfile.write("%04X : %04X; --%s\n" % (word, dat, line))
+					print("\t0x%04x %s -> 0x%04x" % (word, line, toword(ops[0], ops[1], ops[2])))
+					word += 1
 				elif ops[0].startswith("+"):
 					dat = toword(ops[0], "", "")
-					ih[word+1] = ((dat & 0x00FF) >> 0)
-					ih[word+0] = ((dat & 0xFF00) >> 8)
-					print("%s > 0x%04x" % (ops[0], toword(ops[0], "", "")))
-					word += 2
+					hexfile.write("%04X : %04X; --%s\n" % (word, dat, line))
+					print("\t0x%04x %s -> 0x%04x" % (word, line, toword(ops[0], "", "")))
+					word += 1
 				else:
-					raise Exception("Unknown instruction: '%s' at line %s" % (first, lineno))		
-		print("Writing program to hex file...")
-		ih.tofile(hexfile, format='hex')
+					raise Exception("Unknown instruction: '%s' at line %s" % (first, lineno))	
+		hexfile.write("END;")
+		print("Preventing program from becomming skynet...")
+		time.sleep(4)
+		print("\033[31mERROR: Failed to prevent skynet!\033[0m")
+		print('Saving as "%s.mif"' % file)
+		time.sleep(2)
+		print("Done!")	
 
 
+print("----------GPA Robotics terrible SXT8C204 assembler----------")
+time.sleep(2)
 map(sys.argv[1])
 print("Writing symbol map to csv file...")
 writer = csv.writer(open(sys.argv[1] + ".csv", 'wb'))
 for key, value in symbols.items():
 		writer.writerow([key, value])
 assemble(sys.argv[1])
+print("\033[31mERROR: Failed to find the ultimate question to life, the universe and everything!\033[0m")
+print("Bye!")

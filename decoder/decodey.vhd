@@ -15,10 +15,7 @@ entity decodey is
 	Inter: out std_logic_vector(7 downto 0);
 
 	--operation
-	op: out std_logic_vector(3 downto 0);
-	
-	--fetchy should ignore next word
-	extended: out std_logic
+	op: out std_logic_vector(3 downto 0)
 	
  );
 end decodey;
@@ -31,8 +28,6 @@ begin
 	Inter <= ins(11 downto 4);
 	op <= "0" & ins(14 downto 12);
 	muxsel <= ins(15);
-	
-	extended <= '1' when ins(15 downto 12) = "-111" else '0';
 	
 
 

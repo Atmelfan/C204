@@ -54,8 +54,8 @@ applicable agreement for further details.
 	(port
 		(pt 200 48)
 		(output)
-		(text "jmp" (rect 0 0 14 12)(font "Arial" ))
-		(text "jmp" (rect 165 43 179 55)(font "Arial" ))
+		(text "skip" (rect 0 0 15 12)(font "Arial" ))
+		(text "skip" (rect 164 43 179 55)(font "Arial" ))
 		(line (pt 200 48)(pt 184 48)(line_width 1))
 	)
 	(port
