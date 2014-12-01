@@ -59,12 +59,8 @@ begin
 		--0x7, JMP
 		when x"7" =>
 			wr <= '0';
+			jmp <= '1';
 			C <= (others => '0');
-			if A = B then
-				jmp <= '1';
-			else
-				jmp <= '0';
-			end if;
 		when others =>
 			wr <= '0';
 			jmp <= '0';

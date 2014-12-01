@@ -19,26 +19,38 @@ BEGIN
 	PROCESS ( bcd )
 	BEGIN
 		CASE bcd IS
-			WHEN "0000" =>
+			WHEN x"0" =>
 				display <= "0000001" ;
-			WHEN "0001" =>
+			WHEN x"1" =>
 				display <= "1001111" ;
-			WHEN "0010" =>
+			WHEN x"2" =>
 				display <= "0010010" ;
-			WHEN "0011" =>
+			WHEN x"3" =>
 				display <= "0000110" ;
-			WHEN "0100" =>
+			WHEN x"4" =>
 				display <= "1001100" ;
-			WHEN "0101" =>
+			WHEN x"5" =>
 				display <= "0100100" ;
-			WHEN "0110" =>
+			WHEN x"6" =>
 				display <= "1100000" ;
-			WHEN "0111" =>
+			WHEN x"7" =>
 				display <= "0001111" ;
-			WHEN "1000" =>
+			WHEN x"8" =>
 				display <= "0000000" ;
-			WHEN "1001" =>
+			WHEN x"9" =>
 				display <= "0001100" ;
+			WHEN x"A" =>
+				display <= "0001000" ;
+			WHEN x"B" =>
+				display <= "1100000" ;
+			WHEN x"C" =>
+				display <= "0110001" ;
+			WHEN x"D" =>
+				display <= "1000010" ;
+			WHEN x"E" =>
+				display <= "0110000" ;
+			WHEN x"F" =>
+				display <= "0111000" ;
 			WHEN OTHERS =>
 				display <= "1111111" ;
 		END CASE ;
