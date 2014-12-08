@@ -56,7 +56,7 @@ begin
 			wr <= '1';
 			skip <= '0';
 			C <= A;
-		--0x7, skne
+		--0x7, SKNE
 		when x"7" =>
 			wr <= '0';
 			if(A = B) then

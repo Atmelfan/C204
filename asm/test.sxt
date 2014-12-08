@@ -1,0 +1,14 @@
+#Author: atmelfan
+$include std.sxt
+
+#init
+init:
+	#Kopiera 1 till register 0
+	micke 1 R0
+#main
+main:
+	#Addera 1 till register 0
+	adi 1 LEDS
+	#Hoppa till main
+	micke main:LO PCL
+	micke main:HI PCH

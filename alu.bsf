@@ -26,23 +26,30 @@ applicable agreement for further details.
 	(port
 		(pt 0 32)
 		(input)
-		(text "OP[3..0]" (rect 0 0 33 12)(font "Arial" ))
-		(text "OP[3..0]" (rect 21 27 54 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32)(line_width 3))
+		(text "carry_in" (rect 0 0 34 12)(font "Arial" ))
+		(text "carry_in" (rect 21 27 55 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
 	)
 	(port
 		(pt 0 48)
 		(input)
-		(text "A[width-1..0]" (rect 0 0 48 12)(font "Arial" ))
-		(text "A[width-1..0]" (rect 21 43 69 55)(font "Arial" ))
+		(text "OP[3..0]" (rect 0 0 33 12)(font "Arial" ))
+		(text "OP[3..0]" (rect 21 43 54 55)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48)(line_width 3))
 	)
 	(port
 		(pt 0 64)
 		(input)
-		(text "B[width-1..0]" (rect 0 0 46 12)(font "Arial" ))
-		(text "B[width-1..0]" (rect 21 59 67 71)(font "Arial" ))
+		(text "A[width-1..0]" (rect 0 0 48 12)(font "Arial" ))
+		(text "A[width-1..0]" (rect 21 59 69 71)(font "Arial" ))
 		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "B[width-1..0]" (rect 0 0 46 12)(font "Arial" ))
+		(text "B[width-1..0]" (rect 21 75 67 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
 	)
 	(port
 		(pt 200 32)
@@ -61,9 +68,16 @@ applicable agreement for further details.
 	(port
 		(pt 200 64)
 		(output)
+		(text "carry_out" (rect 0 0 40 12)(font "Arial" ))
+		(text "carry_out" (rect 139 59 179 71)(font "Arial" ))
+		(line (pt 200 64)(pt 184 64)(line_width 1))
+	)
+	(port
+		(pt 200 80)
+		(output)
 		(text "C[width-1..0]" (rect 0 0 47 12)(font "Arial" ))
-		(text "C[width-1..0]" (rect 132 59 179 71)(font "Arial" ))
-		(line (pt 200 64)(pt 184 64)(line_width 3))
+		(text "C[width-1..0]" (rect 132 75 179 87)(font "Arial" ))
+		(line (pt 200 80)(pt 184 80)(line_width 3))
 	)
 	(parameter
 		"WIDTH"
