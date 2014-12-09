@@ -1,4 +1,4 @@
-C204
+SXT8C204
 ====
 
 An extremely stupid microprocessor
