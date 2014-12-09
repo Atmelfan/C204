@@ -14,10 +14,10 @@ entity decodey is
  --Intermediate
 	Inter: out std_logic_vector(7 downto 0);
 
-	--operation
+ --operation
 	op: out std_logic_vector(3 downto 0);
 	
-	--fetchy should ignore next word
+ --fetchy should ignore next word
 	extended: out std_logic
 	
  );
