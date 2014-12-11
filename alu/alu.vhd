@@ -27,7 +27,7 @@ begin
 			skip <= '0';
 			C <= (others => '0');
 		--0x1, ADD
-	   when x"1" =>
+	  	 when x"1" =>
 			wr <= '1';
 			skip <= '0';
 			C <= B + A;
@@ -56,7 +56,7 @@ begin
 			wr <= '1';
 			skip <= '0';
 			C <= A;
-		--0x7, SKNE
+		--0x7, SKE
 		when x"7" =>
 			wr <= '0';
 			if(A = B) then
@@ -65,6 +65,16 @@ begin
 				skip <= '0';
 			end if;
 			C <= (others => '0');
+		--0x8, SHL
+		when x"8" =>
+			wr <= '1';
+			skip <= '0';
+			C <= A(6 downto 0)&"0";
+		--0x9, SHR
+		when x"8" =>
+			wr <= '1';
+			skip <= '0';
+			C <= "0"&A(7 downto 1);
 		when others =>
 			wr <= '0';
 			skip <= '0';

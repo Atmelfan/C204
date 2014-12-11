@@ -21,38 +21,40 @@ instructions = {
 	#Copy
 	"mov": 0x60,
 	#Skip if equal
-	"ske": 0x7,
-	"rv1": 0x08,
-	"rv2": 0x09,
+	"ske": 0x70,
+	"shl": 0x08,
+	"shr": 0x09,
 	"rv3": 0x0A,
 	"rv4": 0x0B,
 	"rv5": 0x0C,
 	"rv6": 0x0D,
 	"rv7": 0x0E,
 	"rv8": 0x0F,
-	#----EXTENDED INNSTRUCTIONS----
-	#Intermediate no operation
+	#----IMMEDIATE INSTRUCTIONS----
+	#Immediate no operation
 	"noi": 0x80,
-	#Intermediate add
+	#Immediate add
 	"adi": 0x90,
-	#Intermediate subtract
+	#Immediate subtract
 	"sbi": 0xA0,
-	#Intermediate logcal and
+	#Immediate logcal and
 	"ani": 0xB0,
-	#Intermediate logical or
+	#Immediate logical or
 	"ori": 0xC0,
-	#Intermediate logical xor
+	#Immediate logical xor
 	"xoi": 0xD0,
-	#Intermediate copy
+	#Immediate copy
 	"ldi": 0xE0,
-	#Intermediate skip if equal
-	"sei": 0xF0,
+	#Immediate skip if equal
+	"ski": 0xF0,
 	
 
 }
+		
 
 symbols = {
 }
+
 
 def preprocess(s):
 	s = s.strip().split("#")[0]
@@ -134,7 +136,7 @@ ADDRESS_RADIX = HEX;
 DATA_RADIX = HEX;
 CONTENT
 BEGIN\n""")
-		print("\t%-6s  %-25s  %-20s  %-6s" % ("addr", "assembly", "preprocessed", "disassembly"))
+		print("\t%-8s%-27s%-22s%-6s" % ("addr", "assembly", "preprocessed", "disassembly"))
 		for pre in input:
 			lineno += 1
 			line = preprocess(pre)
@@ -149,7 +151,7 @@ BEGIN\n""")
 					b = ops[2] if len(ops) > 2 else "0"
 					dat = toword(ops[0], a, b)
 					hexfile.write("%04X : %04X; --%s\n" % (word, dat, pre.strip()))
-					print("\t0x%04x  %-25s  %-20s  0x%04x" % (word, pre.strip(), line, toword(ops[0], a, b)))
+					print("\t0x%04x  %-27s%-22s0x%04x" % (word, pre.strip(), line, toword(ops[0], a, b)))
 					word += 1
 				else:
 					raise Exception("Unknown instruction: '%s' at line %s" % (ops[0], lineno))	

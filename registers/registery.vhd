@@ -64,7 +64,7 @@ begin
 			--If not, increment PC as normal and write to registers
 			else
 				if(skip = '1') then
-					pc <= pc + 2;
+					pc <= pc + 3;
 				else
 					pc <= pc + 1;
 				end if;
