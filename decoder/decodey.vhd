@@ -3,28 +3,19 @@ use ieee.std_logic_1164.all;
 
 entity decodey is
 	port(
---INSTRUCTIONz
+	--INSTRUCTIONz
 	ins: in std_logic_vector(15 downto 0);
 	
- --select registrery
+ 	--select registrery
 	Asel: out std_logic_vector(3 downto 0);
 	Bsel: out std_logic_vector(3 downto 0);
 	muxsel: out std_logic; -- selects between A register and intermediate.
 	
- --Intermediate
+ 	--Immediate
 	Inter: out std_logic_vector(7 downto 0);
 
-<<<<<<< HEAD
- --operation
-	op: out std_logic_vector(3 downto 0);
-	
- --fetchy should ignore next word
-	extended: out std_logic
-=======
 	--operation
 	op: out std_logic_vector(3 downto 0)
->>>>>>> origin/master
-	
  );
 end decodey;
 
