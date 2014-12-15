@@ -1,4 +1,5 @@
 #Author: atmelfan
+#std.sxt innehåller definitioner för R0-R10, PCL, PCH etc
 $include std.sxt
 
 #init
@@ -8,7 +9,8 @@ init:
 #main
 main:
 	#Addera 1 till register 0
-	adi 1 LEDS
-	#Hoppa till main
+	adi 1 R0
+	#Hoppa till main genom att kopiera in mains address i programräknar registren
+	#Programräknaren är uppdelad i två register  för att få plats med en 16bitars address i 8bitars register
 	micke main:LO PCL
 	micke main:HI PCH
