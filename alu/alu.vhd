@@ -71,7 +71,7 @@ begin
 			skip <= '0';
 			C <= A(6 downto 0)&"0";
 		--0x9, SHR
-		when x"8" =>
+		when x"9" =>
 			wr <= '1';
 			skip <= '0';
 			C <= "0"&A(7 downto 1);
