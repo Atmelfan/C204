@@ -1,0 +1,25 @@
+#Author: atmelfan
+$include std.sxt
+
+#init
+init:
+	#Kopiera 1 till register 0
+	micke 0x01 R0
+#main
+main:
+	micke 0x01 LEDS
+left:
+	shl LEDS LEDS
+	#Continue if LEDS = 0x80 else loop
+	ski 0x80 LEDS
+		ldi left:LO PCL
+		ldi left:HI PCH
+	nop
+	nop
+right:
+	shr LEDS LEDS
+	ski 0x01 LEDS
+		ldi right:LO PCL
+		ldi right:HI PCH
+	ldi left:LO PCL
+	ldi left:HI PCH
